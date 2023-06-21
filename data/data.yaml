@@ -1,0 +1,14 @@
+path: data
+train: ../train/images
+val: ../valid/images
+test: ../test/images
+
+nc: 4
+names: ['Chariot elevateur', 'Convoyeur', 'Broyeur', 'Palette']
+
+roboflow:
+  workspace: uqtr-2v1ej
+  project: industrial-objects-2
+  version: 9
+  license: CC BY 4.0
+  url: https://universe.roboflow.com/uqtr-2v1ej/industrial-objects-2/dataset/9
