@@ -12,4 +12,5 @@ jobs:
 
     steps:
       - run: echo "Test Started !!"
+      - run: ls
       - run: python detect.py --weights runs/train/training/weights/best.pt --img 640 --conf 0.5 --source data/tests
