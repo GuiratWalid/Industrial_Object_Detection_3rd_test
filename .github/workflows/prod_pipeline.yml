@@ -1,9 +1,15 @@
 name: PRODUCTION -CI/CD Pipeline
-run-name: PRODUCTION -CI/CD Pipeline
-on: [push]
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
 jobs:
-  Build:
+  build:
     runs-on: ubuntu-latest
+
     steps:
       - run: echo "Test Started !"
       - run: python detect.py --weights runs/train/training/weights/best.pt --img 640 --conf 0.5 --source data/tests
