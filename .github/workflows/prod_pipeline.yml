@@ -1,1 +1,9 @@
-
+name: PRODUCTION -CI/CD Pipeline
+run-name: PRODUCTION -CI/CD Pipeline
+on: [push]
+jobs:
+  Explore-GitHub-Actions:
+    runs-on: ubuntu-latest
+    steps:
+      - run: pip install -r requirements.txt
+      - run: python detect.py --weights runs\train\training\weights\best.pt --img 640 --conf 0.5 --source data/tests
