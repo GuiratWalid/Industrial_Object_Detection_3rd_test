@@ -11,6 +11,13 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+      - name: Checkout repository
+        uses: actions/checkout@v1
+
+      - name: Initialize CodeQL
+        uses: github/codeql-action/init@v1
+        with:
+          languages: ${{ matrix.language }}
       - run: echo "Test Started !!"
       - run: ls
       - run: python detect.py --weights runs/train/training/weights/best.pt --img 640 --conf 0.5 --source data/tests
