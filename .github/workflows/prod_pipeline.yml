@@ -2,6 +2,7 @@ name: PRODUCTION -CI/CD Pipeline
 
 run-name: PRODUCTION -CI/CD Pipeline
 
+
 on:
   push:
     branches: [ "main" ]
@@ -28,7 +29,13 @@ jobs:
           pip install -r requirements.txt
       - name: Testing
         run: echo "Run !"
-        # 
+           # python detect.py --weights runs\train\training\weights\best.pt --img 640 --conf 0.5 --source data/tests
+        
+      - name: Build Docker Image
+        run: |
+          # docker build -t walidguirat/Industrial_Object_Detection:0.1 .
+          # docker login -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_PASSWORD }}
+          # docker push walidguirat/Industrial_Object_Detection:0.1
   deploy:
     runs-on: ubuntu-latest
 
@@ -40,19 +47,22 @@ jobs:
         uses: google-github-actions/setup-gcloud@master
         with:
           service_account_key: ${{ secrets.GCP_SERVICE_ACCOUNT_KEY }}
-          project_id: your-gcp-project-id
+          project_id: vm-83-972@steel-index-259412.iam.gserviceaccount.com
           export_default_credentials: true
 
       - name: Authenticate with Google Cloud
-        run: gcloud auth activate-service-account --key-file=${{ secrets.GCP_SERVICE_ACCOUNT_KEY }}
+        run: # gcloud auth activate-service-account --key-file=${{ secrets.GCP_SERVICE_ACCOUNT_KEY }}
+          echo "Run !"
 
       - name: Pull Docker Image
         run: |
-          docker login -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_PASSWORD }}
-          docker pull your-docker-username/Industrial_Object_Detection:tag
+          echo "Run !"
+         # docker login -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_PASSWORD }}
+         # docker pull walidguirat/Industrial_Object_Detection:0.1
 
       - name: Run Docker Container on GCP VM
         run: |
-          gcloud compute ssh your-gcp-vm-name --command "docker run -d your-docker-username/Industrial_Object_Detection:tag"
+          echo "Run !"
+          # gcloud compute ssh your-gcp-vm-name --command "docker run -d walidguirat/Industrial_Object_Detection:0.1"
 
 
