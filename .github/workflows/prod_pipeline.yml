@@ -28,22 +28,31 @@ jobs:
           pip install -r requirements.txt
       - name: Testing
         run: echo "Run !"
+        # 
   deploy:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout repository
+      - name: Checkout Repository
         uses: actions/checkout@v2
 
-      - name: Set up Python 3.x
-        uses: actions/setup-python@v2
+      - name: Set up Google Cloud SDK
+        uses: google-github-actions/setup-gcloud@master
+        with:
+          service_account_key: ${{ secrets.GCP_SERVICE_ACCOUNT_KEY }}
+          project_id: your-gcp-project-id
+          export_default_credentials: true
 
-      - name: Install dependencies
+      - name: Authenticate with Google Cloud
+        run: gcloud auth activate-service-account --key-file=${{ secrets.GCP_SERVICE_ACCOUNT_KEY }}
+
+      - name: Pull Docker Image
         run: |
-          python -m pip install --upgrade pip
-          pip install ultralytics
+          docker login -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_PASSWORD }}
+          docker pull your-docker-username/Industrial_Object_Detection:tag
 
-          pip install flake8
-          pip install -r requirements.txt
-      - name: Testing
-        run: echo "Run !"
+      - name: Run Docker Container on GCP VM
+        run: |
+          gcloud compute ssh your-gcp-vm-name --command "docker run -d your-docker-username/Industrial_Object_Detection:tag"
+
+
