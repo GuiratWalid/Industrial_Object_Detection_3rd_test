@@ -29,7 +29,7 @@ RUN wget https://github.com/GuiratWalid/Industrial_Object_Detection_3rd_test/blo
 # (Optional) You may need to modify the yolov5/data/custom_config.yaml file to match your dataset and model configuration
 
 # Expose any necessary ports
-EXPOSE 8888
+EXPOSE 8080
 
 # Set environment variables (if needed)
 # ENV MY_VARIABLE=value
